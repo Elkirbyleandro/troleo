@@ -22,7 +22,7 @@ on:
       delayadmin:
         description: 'Delay para llamar al administrador'
         required: true
-        default: '99999999999999'
+        default: '7200'
 
 jobs:
   run-bots:
