@@ -8,18 +8,18 @@ on:
         required: true
         default: 'https://www.haxball.com/play?c=1n05nbF698Q'
       mensaje:
-        description: 'Mensaje para el raid'
+        description: 'Mensaje chill'
         required: true
-        default: 'Raid por Stefano365p'
+        default: 'z'
       llamar_admin:
         description: 'Mensaje para llamar al administrador'
         required: true
-        default: 'sexo'
-      otrq:
+        default: '!llamaradmin'
+      delaydown:
         description: 'Delay de mensajes'
         required: true
-        default: '5000'
-      delaydeadmin:
+        default: '800000000000'
+      delayadmin:
         description: 'Delay para llamar al administrador'
         required: true
         default: '120000'
@@ -37,7 +37,7 @@ jobs:
       HAXBALL_ROOM_URL: ${{ github.event.inputs.haxball_room_url }}
       MENSAJE: ${{ github.event.inputs.mensaje }}
       LLAMAR_ADMIN: ${{ github.event.inputs.llamar_admin }}
-      OTROQ: ${{ github.event.inputs.otrq }}
+      DELAYDOWN: ${{ github.event.inputs.delaydown }}
       DELAYADMIN: ${{ github.event.inputs.delayadmin }}
       
     steps:
