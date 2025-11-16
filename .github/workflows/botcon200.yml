@@ -10,19 +10,19 @@ on:
       mensaje:
         description: 'Mensaje chill'
         required: true
-        default: 'z'
+        default: 'Raideados'
       llamar_admin:
         description: 'Mensaje para llamar al administrador'
         required: true
-        default: '!llamaradmin'
+        default: '!afk'
       delaydown:
         description: 'Delay de mensajes'
         required: true
-        default: '800000000000'
+        default: '5000'
       delayadmin:
         description: 'Delay para llamar al administrador'
         required: true
-        default: '120000'
+        default: '99999999999999'
 
 jobs:
   run-bots:
