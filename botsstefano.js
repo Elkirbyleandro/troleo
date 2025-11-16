@@ -103,14 +103,15 @@ async function main() {
         await sendMessageToChat(frame, process.env.LLAMAR_ADMIN, page);
         
         // IMPORTANTE: Esperar un poco después del primer mensaje
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
 
         // Mensaje al chat cada X segundos
         const chatInterval = setInterval(async () => {
             try {
                 await sendMessageToChat(frame, process.env.MENSAJE, page);
             } catch (error) {
-                console.error("⚠️ Error al enviar mensaje al chat (reintentando):", error.message);
+                console.error("⚠️ Error al enviar mensaje al chat:", error.message);
+                // Si falla 3 veces consecutivas, probablemente el bot fue kickeado
             }
         }, parseInt(process.env.DELAYDOWN));
 
@@ -118,7 +119,7 @@ async function main() {
             try {
                 await sendMessageToChat(frame, process.env.LLAMAR_ADMIN, page);
             } catch (error) {
-                console.error("⚠️ Error al enviar mensaje admin (reintentando):", error.message);
+                console.error("⚠️ Error al enviar mensaje admin:", error.message);
             }
         }, parseInt(process.env.DELAYADMIN));
 
@@ -142,7 +143,12 @@ async function main() {
         const healthCheck = setInterval(async () => {
             try {
                 const chatSelector = 'input[data-hook="input"][maxlength="140"]';
-                await frame.waitForSelector(chatSelector, { timeout: 5000 });
+                const element = await frame.$(chatSelector);
+                
+                if (!element) {
+                    throw new Error('Input del chat no encontrado');
+                }
+                
                 console.log("✅ Conexión activa");
                 failedHealthChecks = 0;
             } catch (error) {
@@ -154,6 +160,7 @@ async function main() {
                     clearInterval(chatInterval);
                     clearInterval(otrointerval);
                     clearInterval(moveInterval);
+                    await notifyDiscord(`⚠️ Bot **${BOT_NICKNAME}** perdió conexión (posiblemente kickeado)`);
                     throw new Error('Perdida de conexión con el servidor (3 fallos consecutivos)');
                 }
             }
@@ -170,7 +177,7 @@ async function main() {
 
     } catch (error) {
         console.error("❌ Error durante la ejecución del bot:", error);
-        await notifyDiscord(`🔴 Error al intentar conectar el bot **${BOT_NICKNAME}**. Causa: ${error.message}`);
+        await notifyDiscord(`🔴 Error en bot **${BOT_NICKNAME}**. Causa: ${error.message}`);
         
         if (browser) {
             try {
@@ -208,40 +215,48 @@ async function notifyDiscord(message) {
     }
 }
 
-// Enviar mensaje al chat con reintentos
+// Enviar mensaje al chat con reintentos mejorados
 async function sendMessageToChat(frame, message, page) {
     const maxRetries = 3;
+    
     for (let i = 0; i < maxRetries; i++) {
         try {
             const chatSelector = 'input[data-hook="input"][maxlength="140"]';
-            await frame.waitForSelector(chatSelector, { timeout: 10000 });
             
-            const chatInput = await frame.$(chatSelector);
-            if (!chatInput) {
-                throw new Error('No se encontró el input del chat');
+            // Verificar si el elemento existe antes de esperar
+            const element = await frame.$(chatSelector);
+            if (!element) {
+                console.warn(`⚠️ Input del chat no encontrado (intento ${i + 1}/${maxRetries})`);
+                if (i === maxRetries - 1) {
+                    throw new Error('Bot posiblemente fue kickeado o sala cerrada');
+                }
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                continue;
             }
 
             // Hacer clic para enfocar el input
-            await chatInput.click();
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await element.click();
+            await new Promise(resolve => setTimeout(resolve, 300));
 
-            // Limpiar el input seleccionando todo y borrando
+            // Limpiar el input
             await page.keyboard.down('Control');
             await page.keyboard.press('KeyA');
             await page.keyboard.up('Control');
             await page.keyboard.press('Backspace');
-            await new Promise(resolve => setTimeout(resolve, 300));
+            await new Promise(resolve => setTimeout(resolve, 200));
 
-            // Escribir mensaje usando page.keyboard
-            await page.keyboard.type(message, { delay: 100 });
-            await new Promise(resolve => setTimeout(resolve, 500));
+            // Escribir mensaje
+            await page.keyboard.type(message, { delay: 80 });
+            await new Promise(resolve => setTimeout(resolve, 300));
 
             // Enviar
             await page.keyboard.press('Enter');
             console.log(`✉️ Mensaje enviado: ${message}`);
 
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Esperar antes de retornar
+            await new Promise(resolve => setTimeout(resolve, 1500));
             return;
+            
         } catch (error) {
             console.error(`⚠️ Intento ${i + 1}/${maxRetries} falló:`, error.message);
             if (i === maxRetries - 1) {
@@ -264,7 +279,6 @@ async function iniciarBotConReintentos() {
             break;
         } catch (error) {
             console.error(`❌ Intento ${intentos} fallido:`, error.message);
-            await notifyDiscord(`🔴 Fallo en intento ${intentos} para el bot **${BOT_NICKNAME}**. Error: ${error.message}`);
             
             if (intentos >= MAX_INTENTOS) {
                 console.error("🚫 Máximo de intentos alcanzado. Abortando.");
