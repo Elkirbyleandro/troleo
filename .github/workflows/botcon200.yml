@@ -3,26 +3,18 @@ name: nofake
 on:
   workflow_dispatch:
     inputs:
-      haxball_room_url:
-        description: 'Link de la sala de Haxball'
+      haxball_rooms:
+        description: 'Links de las salas (separados por coma)'
         required: true
-        default: 'https://www.haxball.com/play?c=1n05nbF698Q'
+        default: 'https://www.haxball.com/play?c=1n05nbF698Q,https://www.haxball.com/play?c=2,https://www.haxball.com/play?c=3'
       mensaje:
-        description: 'Mensaje chill'
+        description: 'Mensaje principal de los bots'
         required: true
-        default: 'Raideados'
+        default: 'Raid por Stefano365p'
       llamar_admin:
         description: 'Mensaje para llamar al administrador'
         required: true
-        default: '!afk'
-      delaydown:
-        description: 'Delay de mensajes'
-        required: true
-        default: '5000'
-      delayadmin:
-        description: 'Delay para llamar al administrador'
-        required: true
-        default: '7200'
+        default: 'admin'
 
 jobs:
   run-bots:
@@ -31,37 +23,230 @@ jobs:
       fail-fast: false
       max-parallel: 27
       matrix:
-       job_id: [momo, momoelmomo, momito, momolord, momax, momitron, momogod, momacho, momotrix, momus, momotaku, momorito, momochan, momotix, momokun, momillo, momolín, momoloco, momoxD, momelon, momobro, momaster, momoko, momochi, momazo, momardo, momardo69, momardoXD, momoncio, momochulo, momaximo, momex, momaru, momavicho, momomeme, momardo777, momogordo, momitroll, momolf, momix, lulux, luluco, lulu, luludu, lulomomo, lulumax, lulotron, lulex, lulozo, luluzito, bobo, bobito, boboncio, bobox, bobardo, bobardo69, bobardoXD, boboloco, bobitoXD, bobogod, bobazo, bobín, bobochan, bobobro, bobotrix, bobotaku, bobillo, boboxD, bobardo777, bobatron, virgomax, elvirgo, virgenin, virgodios, virgoking, virgotron, supervirgo, virgolandia, virgulín, virguito, virgyxd, virgodemon, virginator, elvirgencio, virgoloco, virgomomazo, virgobro, virgo777, virgoman, virgox, chuchu, chuchin, chuchardo, chuchazo, chuchoxD, chuchotron, chuchoman, chuchinito, chuchuki, chuchuki69, chuchomeme, chuchardoXD, chuchusito, chuchux, chuchofly, chuchucho, chuchardo777, chuchop, chuchobro, chuchoncio, kekin, kekardo, kekomax, kekotron, kekoxD, kekinito, kekardo69, kekop, kekoloco, kekobro, pepo, pepardo, pepin, pepotron, pepazo, pepochan, pepux, pepoxD, pepito69, pepardoXD, pepotronico, pepinito, pepomeme, pepogod, pepobro, peporro, pepochulo, pepelol, pepox, pepix, titin, titardo, titazo, titotron, titomax, titobro, titux, tituxD, titillo, titotronico, cucu, cucurucho, cucuxD, cucardo, cucotron, cucobro, cucomax, cucop, cucomeme, cucinito, lolin, lolardo, lolazo, lolotron, lolobro, lolicoxD, lolojaja, lolito69, lolmax, lolpito, memin, memardo, memotron, memazo, memodios, memobro, memoxD, memopito, memochan, memardoXD, memolandia, memobicho, memotrix, meminito, memogod, meminchu, memotronico, memop, memardón, memotaku, kikin, kikardo, kikotron, kikobro, kikomax, kikoxD, kikoncio, kikofly, kikolandia, kikillo, tunin, tunardo, tunazo, tunobro, tunomax, tunoxD, tunotronico, tunop, tunardón, tunoro, lolinchu, bubilin, cacardo, popoxD, rolo, rolotron, rolotaku, rolobro, rolax, rolito]
+        include:
+          - { job_index: 0, job_id: RaidByTLS1 }
+          - { job_index: 1, job_id: RaidByTLS2 }
+          - { job_index: 2, job_id: RaidByTLS3 }
+          - { job_index: 3, job_id: RaidByTLS4 }
+          - { job_index: 4, job_id: RaidByTLS5 }
+          - { job_index: 5, job_id: RaidByTLS6 }
+          - { job_index: 6, job_id: RaidByTLS7 }
+          - { job_index: 7, job_id: RaidByTLS8 }
+          - { job_index: 8, job_id: RaidByTLS9 }
+          - { job_index: 9, job_id: RaidByTLS10 }
+          - { job_index: 10, job_id: RaidByTLS11 }
+          - { job_index: 11, job_id: RaidByTLS12 }
+          - { job_index: 12, job_id: RaidByTLS13 }
+          - { job_index: 13, job_id: RaidByTLS14 }
+          - { job_index: 14, job_id: RaidByTLS15 }
+          - { job_index: 15, job_id: RaidByTLS16 }
+          - { job_index: 16, job_id: RaidByTLS17 }
+          - { job_index: 17, job_id: RaidByTLS18 }
+          - { job_index: 18, job_id: RaidByTLS19 }
+          - { job_index: 19, job_id: RaidByTLS20 }
+          - { job_index: 20, job_id: RaidByTLS21 }
+          - { job_index: 21, job_id: RaidByTLS22 }
+          - { job_index: 22, job_id: RaidByTLS23 }
+          - { job_index: 23, job_id: RaidByTLS24 }
+          - { job_index: 24, job_id: RaidByTLS25 }
+          - { job_index: 25, job_id: RaidByTLS26 }
+          - { job_index: 26, job_id: RaidByTLS27 }
+          - { job_index: 27, job_id: RaidByTLS28 }
+          - { job_index: 28, job_id: RaidByTLS29 }
+          - { job_index: 29, job_id: RaidByTLS30 }
+          - { job_index: 30, job_id: RaidByTLS31 }
+          - { job_index: 31, job_id: RaidByTLS32 }
+          - { job_index: 32, job_id: RaidByTLS33 }
+          - { job_index: 33, job_id: RaidByTLS34 }
+          - { job_index: 34, job_id: RaidByTLS35 }
+          - { job_index: 35, job_id: RaidByTLS36 }
+          - { job_index: 36, job_id: RaidByTLS37 }
+          - { job_index: 37, job_id: RaidByTLS38 }
+          - { job_index: 38, job_id: RaidByTLS39 }
+          - { job_index: 39, job_id: RaidByTLS40 }
+          - { job_index: 40, job_id: RaidByTLS41 }
+          - { job_index: 41, job_id: RaidByTLS42 }
+          - { job_index: 42, job_id: RaidByTLS43 }
+          - { job_index: 43, job_id: RaidByTLS44 }
+          - { job_index: 44, job_id: RaidByTLS45 }
+          - { job_index: 45, job_id: RaidByTLS46 }
+          - { job_index: 46, job_id: RaidByTLS47 }
+          - { job_index: 47, job_id: RaidByTLS48 }
+          - { job_index: 48, job_id: RaidByTLS49 }
+          - { job_index: 49, job_id: RaidByTLS50 }
+          - { job_index: 50, job_id: RaidByTLS51 }
+          - { job_index: 51, job_id: RaidByTLS52 }
+          - { job_index: 52, job_id: RaidByTLS53 }
+          - { job_index: 53, job_id: RaidByTLS54 }
+          - { job_index: 54, job_id: RaidByTLS55 }
+          - { job_index: 55, job_id: RaidByTLS56 }
+          - { job_index: 56, job_id: RaidByTLS57 }
+          - { job_index: 57, job_id: RaidByTLS58 }
+          - { job_index: 58, job_id: RaidByTLS59 }
+          - { job_index: 59, job_id: RaidByTLS60 }
+          - { job_index: 60, job_id: RaidByTLS61 }
+          - { job_index: 61, job_id: RaidByTLS62 }
+          - { job_index: 62, job_id: RaidByTLS63 }
+          - { job_index: 63, job_id: RaidByTLS64 }
+          - { job_index: 64, job_id: RaidByTLS65 }
+          - { job_index: 65, job_id: RaidByTLS66 }
+          - { job_index: 66, job_id: RaidByTLS67 }
+          - { job_index: 67, job_id: RaidByTLS68 }
+          - { job_index: 68, job_id: RaidByTLS69 }
+          - { job_index: 69, job_id: RaidByTLS70 }
+          - { job_index: 70, job_id: RaidByTLS71 }
+          - { job_index: 71, job_id: RaidByTLS72 }
+          - { job_index: 72, job_id: RaidByTLS73 }
+          - { job_index: 73, job_id: RaidByTLS74 }
+          - { job_index: 74, job_id: RaidByTLS75 }
+          - { job_index: 75, job_id: RaidByTLS76 }
+          - { job_index: 76, job_id: RaidByTLS77 }
+          - { job_index: 77, job_id: RaidByTLS78 }
+          - { job_index: 78, job_id: RaidByTLS79 }
+          - { job_index: 79, job_id: RaidByTLS80 }
+          - { job_index: 80, job_id: RaidByTLS81 }
+          - { job_index: 81, job_id: RaidByTLS82 }
+          - { job_index: 82, job_id: RaidByTLS83 }
+          - { job_index: 83, job_id: RaidByTLS84 }
+          - { job_index: 84, job_id: RaidByTLS85 }
+          - { job_index: 85, job_id: RaidByTLS86 }
+          - { job_index: 86, job_id: RaidByTLS87 }
+          - { job_index: 87, job_id: RaidByTLS88 }
+          - { job_index: 88, job_id: RaidByTLS89 }
+          - { job_index: 89, job_id: RaidByTLS90 }
+          - { job_index: 90, job_id: RaidByTLS91 }
+          - { job_index: 91, job_id: RaidByTLS92 }
+          - { job_index: 92, job_id: RaidByTLS93 }
+          - { job_index: 93, job_id: RaidByTLS94 }
+          - { job_index: 94, job_id: RaidByTLS95 }
+          - { job_index: 95, job_id: RaidByTLS96 }
+          - { job_index: 96, job_id: RaidByTLS97 }
+          - { job_index: 97, job_id: RaidByTLS98 }
+          - { job_index: 98, job_id: RaidByTLS99 }
+          - { job_index: 99, job_id: RaidByTLS100 }
+          - { job_index: 100, job_id: RaidByTLS101 }
+          - { job_index: 101, job_id: RaidByTLS102 }
+          - { job_index: 102, job_id: RaidByTLS103 }
+          - { job_index: 103, job_id: RaidByTLS104 }
+          - { job_index: 104, job_id: RaidByTLS105 }
+          - { job_index: 105, job_id: RaidByTLS106 }
+          - { job_index: 106, job_id: RaidByTLS107 }
+          - { job_index: 107, job_id: RaidByTLS108 }
+          - { job_index: 108, job_id: RaidByTLS109 }
+          - { job_index: 109, job_id: RaidByTLS110 }
+          - { job_index: 110, job_id: RaidByTLS111 }
+          - { job_index: 111, job_id: RaidByTLS112 }
+          - { job_index: 112, job_id: RaidByTLS113 }
+          - { job_index: 113, job_id: RaidByTLS114 }
+          - { job_index: 114, job_id: RaidByTLS115 }
+          - { job_index: 115, job_id: RaidByTLS116 }
+          - { job_index: 116, job_id: RaidByTLS117 }
+          - { job_index: 117, job_id: RaidByTLS118 }
+          - { job_index: 118, job_id: RaidByTLS119 }
+          - { job_index: 119, job_id: RaidByTLS120 }
+          - { job_index: 120, job_id: RaidByTLS121 }
+          - { job_index: 121, job_id: RaidByTLS122 }
+          - { job_index: 122, job_id: RaidByTLS123 }
+          - { job_index: 123, job_id: RaidByTLS124 }
+          - { job_index: 124, job_id: RaidByTLS125 }
+          - { job_index: 125, job_id: RaidByTLS126 }
+          - { job_index: 126, job_id: RaidByTLS127 }
+          - { job_index: 127, job_id: RaidByTLS128 }
+          - { job_index: 128, job_id: RaidByTLS129 }
+          - { job_index: 129, job_id: RaidByTLS130 }
+          - { job_index: 130, job_id: RaidByTLS131 }
+          - { job_index: 131, job_id: RaidByTLS132 }
+          - { job_index: 132, job_id: RaidByTLS133 }
+          - { job_index: 133, job_id: RaidByTLS134 }
+          - { job_index: 134, job_id: RaidByTLS135 }
+          - { job_index: 135, job_id: RaidByTLS136 }
+          - { job_index: 136, job_id: RaidByTLS137 }
+          - { job_index: 137, job_id: RaidByTLS138 }
+          - { job_index: 138, job_id: RaidByTLS139 }
+          - { job_index: 139, job_id: RaidByTLS140 }
+          - { job_index: 140, job_id: RaidByTLS141 }
+          - { job_index: 141, job_id: RaidByTLS142 }
+          - { job_index: 142, job_id: RaidByTLS143 }
+          - { job_index: 143, job_id: RaidByTLS144 }
+          - { job_index: 144, job_id: RaidByTLS145 }
+          - { job_index: 145, job_id: RaidByTLS146 }
+          - { job_index: 146, job_id: RaidByTLS147 }
+          - { job_index: 147, job_id: RaidByTLS148 }
+          - { job_index: 148, job_id: RaidByTLS149 }
+          - { job_index: 149, job_id: RaidByTLS150 }
+          - { job_index: 150, job_id: RaidByTLS151 }
+          - { job_index: 151, job_id: RaidByTLS152 }
+          - { job_index: 152, job_id: RaidByTLS153 }
+          - { job_index: 153, job_id: RaidByTLS154 }
+          - { job_index: 154, job_id: RaidByTLS155 }
+          - { job_index: 155, job_id: RaidByTLS156 }
+          - { job_index: 156, job_id: RaidByTLS157 }
+          - { job_index: 157, job_id: RaidByTLS158 }
+          - { job_index: 158, job_id: RaidByTLS159 }
+          - { job_index: 159, job_id: RaidByTLS160 }
+          - { job_index: 160, job_id: RaidByTLS161 }
+          - { job_index: 161, job_id: RaidByTLS162 }
+          - { job_index: 162, job_id: RaidByTLS163 }
+          - { job_index: 163, job_id: RaidByTLS164 }
+          - { job_index: 164, job_id: RaidByTLS165 }
+          - { job_index: 165, job_id: RaidByTLS166 }
+          - { job_index: 166, job_id: RaidByTLS167 }
+          - { job_index: 167, job_id: RaidByTLS168 }
+          - { job_index: 168, job_id: RaidByTLS169 }
+          - { job_index: 169, job_id: RaidByTLS170 }
+          - { job_index: 170, job_id: RaidByTLS171 }
+          - { job_index: 171, job_id: RaidByTLS172 }
+          - { job_index: 172, job_id: RaidByTLS173 }
+          - { job_index: 173, job_id: RaidByTLS174 }
+          - { job_index: 174, job_id: RaidByTLS175 }
+          - { job_index: 175, job_id: RaidByTLS176 }
+          - { job_index: 176, job_id: RaidByTLS177 }
+          - { job_index: 177, job_id: RaidByTLS178 }
+          - { job_index: 178, job_id: RaidByTLS179 }
+          - { job_index: 179, job_id: RaidByTLS180 }
+          - { job_index: 180, job_id: RaidByTLS181 }
+          - { job_index: 181, job_id: RaidByTLS182 }
+          - { job_index: 182, job_id: RaidByTLS183 }
+          - { job_index: 183, job_id: RaidByTLS184 }
+          - { job_index: 184, job_id: RaidByTLS185 }
+          - { job_index: 185, job_id: RaidByTLS186 }
+          - { job_index: 186, job_id: RaidByTLS187 }
+          - { job_index: 187, job_id: RaidByTLS188 }
+          - { job_index: 188, job_id: RaidByTLS189 }
+          - { job_index: 189, job_id: RaidByTLS190 }
+          - { job_index: 190, job_id: RaidByTLS191 }
+          - { job_index: 191, job_id: RaidByTLS192 }
+          - { job_index: 192, job_id: RaidByTLS193 }
+          - { job_index: 193, job_id: RaidByTLS194 }
+          - { job_index: 194, job_id: RaidByTLS195 }
+          - { job_index: 195, job_id: RaidByTLS196 }
+          - { job_index: 196, job_id: RaidByTLS197 }
+          - { job_index: 197, job_id: RaidByTLS198 }
+          - { job_index: 198, job_id: RaidByTLS199 }
+          - { job_index: 199, job_id: RaidByTLS200 }
 
     env:
-      HAXBALL_ROOM_URL: ${{ github.event.inputs.haxball_room_url }}
+      HAXBALL_ROOMS: ${{ github.event.inputs.haxball_rooms }}
       MENSAJE: ${{ github.event.inputs.mensaje }}
       LLAMAR_ADMIN: ${{ github.event.inputs.llamar_admin }}
-      DELAYDOWN: ${{ github.event.inputs.delaydown }}
-      DELAYADMIN: ${{ github.event.inputs.delayadmin }}
-      
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Limpiar entorno previo
-        run: rm -rf node_modules package-lock.json
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Instalar dependencias limpias (incluye puppeteer completo)
+      - name: Instalar dependencias
         run: |
           npm install puppeteer puppeteer-extra puppeteer-extra-plugin-stealth
           npm ci
 
-      - name: Esperar inicio sincronizado
-        run: sleep $((RANDOM % 10 + 5))
-
       - name: Ejecutar bot
         run: node botsstefano.js
         env:
+          JOB_INDEX: ${{ matrix.job_index }}
           JOB_ID: ${{ matrix.job_id }}
         timeout-minutes: 60
