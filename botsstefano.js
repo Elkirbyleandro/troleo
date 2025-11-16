@@ -104,7 +104,7 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, process.env.LLAMAR_ADMIN);
+        await sendMessageToChat(frame, process.env.LLAMAR_ADMIN, page);
         
         // IMPORTANTE: Esperar un poco después del primer mensaje
         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -112,7 +112,7 @@ async function main() {
         // Mensaje al chat cada X segundos
         const chatInterval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, process.env.MENSAJE);
+                await sendMessageToChat(frame, process.env.MENSAJE, page);
             } catch (error) {
                 console.error("⚠️ Error al enviar mensaje al chat (reintentando):", error.message);
                 // NO lanzar error aquí, solo loguear
@@ -121,7 +121,7 @@ async function main() {
 
         const otrointerval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, process.env.LLAMAR_ADMIN);
+                await sendMessageToChat(frame, process.env.LLAMAR_ADMIN, page);
             } catch (error) {
                 console.error("⚠️ Error al enviar mensaje admin (reintentando):", error.message);
                 // NO lanzar error aquí, solo loguear
@@ -219,54 +219,40 @@ async function notifyDiscord(message) {
 }
 
 // Enviar mensaje al chat con reintentos
-async function sendMessageToChat(frame, message) {
+async function sendMessageToChat(frame, message, page) { // ← AGREGAR page como parámetro
     const maxRetries = 3;
-    
     for (let i = 0; i < maxRetries; i++) {
         try {
             const chatSelector = 'input[data-hook="input"][maxlength="140"]';
-            
-            // Esperar con timeout más largo
             await frame.waitForSelector(chatSelector, { timeout: 10000 });
             
-            // Obtener el input
             const chatInput = await frame.$(chatSelector);
-            
             if (!chatInput) {
                 throw new Error('No se encontró el input del chat');
             }
-            
-            // Hacer click para asegurar foco
+
             await chatInput.click();
             await new Promise(resolve => setTimeout(resolve, 500));
-            
-            // Limpiar el input primero
+
+            // Limpiar el input
             await chatInput.click({ clickCount: 3 });
-            await frame.keyboard.press('Backspace');
-            
+            await page.keyboard.press('Backspace'); // ← CAMBIAR frame.keyboard a page.keyboard
+
             // Escribir mensaje
             await chatInput.type(message, { delay: 50 });
             await new Promise(resolve => setTimeout(resolve, 300));
-            
+
             // Enviar
-            await frame.keyboard.press('Enter');
-            
+            await page.keyboard.press('Enter'); // ← CAMBIAR frame.keyboard a page.keyboard
             console.log(`✉️ Mensaje enviado: ${message}`);
-            
-            // Esperar un poco después de enviar
+
             await new Promise(resolve => setTimeout(resolve, 500));
-            
-            return; // Éxito, salir de la función
-            
+            return;
         } catch (error) {
             console.error(`⚠️ Intento ${i + 1}/${maxRetries} falló:`, error.message);
-            
             if (i === maxRetries - 1) {
-                // Último intento falló
                 throw error;
             }
-            
-            // Esperar antes de reintentar
             await new Promise(resolve => setTimeout(resolve, 2000));
         }
     }
