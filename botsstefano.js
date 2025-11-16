@@ -234,20 +234,21 @@ async function sendMessageToChat(frame, message, page) {
                 continue;
             }
 
-            // Hacer clic para enfocar el input
-            await element.click();
+            // Hacer triple clic para seleccionar todo el texto
+            await element.click({ clickCount: 3 });
             await new Promise(resolve => setTimeout(resolve, 300));
 
-            // Limpiar el input
-            await page.keyboard.down('Control');
-            await page.keyboard.press('KeyA');
-            await page.keyboard.up('Control');
-            await page.keyboard.press('Backspace');
+            // Borrar todo con Delete
+            await page.keyboard.press('Delete');
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            // Verificar que está limpio y hacer clic nuevamente
+            await element.click();
             await new Promise(resolve => setTimeout(resolve, 200));
 
             // Escribir mensaje
-            await page.keyboard.type(message, { delay: 80 });
-            await new Promise(resolve => setTimeout(resolve, 300));
+            await page.keyboard.type(message, { delay: 50 });
+            await new Promise(resolve => setTimeout(resolve, 400));
 
             // Enviar
             await page.keyboard.press('Enter');
