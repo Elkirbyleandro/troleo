@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
-const TARGET_ROOM = "https://haxball.com/play?r=TU_SALA_AQUI"; // cambia o pasa por argumento
+const TARGET_ROOM = "https://www.haxball.com/play?c=HTEUs83jHaw"; // cambia o pasa por argumento
 const BOT_NAME = "flooding" + Math.floor(Math.random() * 9999);
 
 (async () => {
