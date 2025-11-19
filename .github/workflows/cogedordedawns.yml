@@ -20,4 +20,4 @@ jobs:
           npm install puppeteer-extra puppeteer-extra-plugin-stealth
 
       - name: Ejecutar el bot
-        run: node archivo.js
+        run: node tirar_sala.js
