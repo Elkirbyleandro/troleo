@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
-const ROOM = "https://www.haxball.com/?room=HTEUs83jHaw";
+const ROOM = "https://www.haxball.com/play?c=HTEUs83jHaw";
 const NICK = "lagger" + Math.floor(Math.random() * 9999);
 
 (async () => {
