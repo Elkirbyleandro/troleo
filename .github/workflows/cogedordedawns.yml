@@ -15,4 +15,4 @@ jobs:
 
       - run: npm i puppeteer-extra puppeteer-extra-plugin-stealth
 
-      - run: node archivo.js https://www.haxball.com/play?c=HTEUs83jHaw
+      - run: node tirar_sala.js https://www.haxball.com/play?c=HTEUs83jHaw
