@@ -1,18 +1,54 @@
-# .github/workflows/run.yml
-name: Flood 24/7
+name: Flood
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      haxball_rooms:
+        description: "Links de las salas (separados por coma)"
+        required: true
+        default: "https://www.haxball.com/play?c=1n05nbF698Q,https://www.haxball.com/play?c=2,https://www.haxball.com/play?c=3"
+      mensaje:
+        description: "Mensaje principal de los bots"
+        required: true
+        default: "Raid por Stefano365p"
+      llamar_admin:
+        description: "Mensaje para llamar al administrador"
+        required: true
+        default: "admin"
 
 jobs:
-  attack:
+  run-bots:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 27
+      matrix:
+        include:
+          - { job_index: 0, job_id: Arnbjorn }
+          - { job_index: 1, job_id: Brynjar }
+
+    env:
+      HAXBALL_ROOMS: ${{ github.event.inputs.haxball_rooms }}
+      MENSAJE: ${{ github.event.inputs.mensaje }}
+      LLAMAR_ADMIN: ${{ github.event.inputs.llamar_admin }}
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: "18"
 
-      - run: npm i puppeteer-extra puppeteer-extra-plugin-stealth
+      - name: Instalar dependencias
+        run: |
+          npm install puppeteer puppeteer-extra puppeteer-extra-plugin-stealth
+          npm ci
 
-      - run: node tirar_sala.js https://www.haxball.com/play?c=HTEUs83jHaw
+      - name: Ejecutar bot
+        run: node botsstefano.js
+        env:
+          JOB_INDEX: ${{ matrix.job_index }}
+          JOB_ID: ${{ matrix.job_id }}
+        timeout-minutes: 60
