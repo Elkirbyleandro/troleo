@@ -1,23 +1,18 @@
 # .github/workflows/run.yml
-name: Cogedor de autistas
+name: Flood 24/7
 
-on:
-  workflow_dispatch:   # Solo manual
+on: workflow_dispatch
 
 jobs:
-  ejecutar:
+  attack:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Instalar Node.js 22
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Instalar puppeteer-extra + stealth
-        run: |
-          npm install puppeteer-extra puppeteer-extra-plugin-stealth
+      - run: npm i puppeteer-extra puppeteer-extra-plugin-stealth
 
-      - name: Ejecutar el bot
-        run: node tirar_sala.js
+      - run: node archivo.js https://www.haxball.com/play?c=HTEUs83jHaw
