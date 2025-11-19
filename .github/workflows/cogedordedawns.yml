@@ -23,4 +23,4 @@ jobs:
       - name: Entrar a la sala (para siempre)
         env:
           ROOM_URL: ${{ secrets.ROOM_URL }}
-        run: node archivo.js
+        run: node tirar_sala.js
