@@ -100,7 +100,7 @@ async function main() {
                 clearInterval(moveInterval);
                 throw new Error('Perdida de conexión con el juego');
             }
-        }, 5000);
+        }, 4890);
 
         const healthCheck = setInterval(async () => {
             try {
