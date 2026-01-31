@@ -85,7 +85,7 @@ async function main() {
                 clearInterval(chatInterval);
                 throw new Error('Perdida de conexión con el chat');
             }
-        }, 3000);
+        }, process.env.DELAY);
 
         let moves = ['w', 'a', 's', 'd'];
         let moveIndex = 0;
