@@ -15,6 +15,10 @@ on:
         description: "Mensaje para llamar al administrador"
         required: true
         default: "admin"
+      delay:
+        description: "Delay en milisegundos"
+        required: true
+        default: "500"
 
 jobs:
   run-bots:
@@ -248,6 +252,7 @@ jobs:
       HAXBALL_ROOMS: ${{ github.event.inputs.haxball_rooms }}
       MENSAJE: ${{ github.event.inputs.mensaje }}
       LLAMAR_ADMIN: ${{ github.event.inputs.llamar_admin }}
+      DELAY: ${{ github.event.inputs.delay }}
 
     steps:
       - name: Checkout code
