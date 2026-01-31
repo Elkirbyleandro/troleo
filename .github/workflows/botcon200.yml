@@ -8,9 +8,9 @@ on:
         required: true
         default: "https://www.haxball.com/play?c=1n05nbF698Q,https://www.haxball.com/play?c=2,https://www.haxball.com/play?c=3"
       mensaje:
-        description: "Mensaje principal de los bots"
+        description: "Mensaje principal"
         required: true
-        default: "Raid por Stefano365p"
+        default: "Hola"
       llamar_admin:
         description: "Mensaje para llamar al administrador"
         required: true
@@ -263,8 +263,28 @@ jobs:
           npm install puppeteer puppeteer-extra puppeteer-extra-plugin-stealth
           npm ci
 
-      - name: Ejecutar bot
-        run: node botsstefano.js
+      - name: Ejecutar bot (retry solo Puppeteer)
+        run: |
+          MAX=3
+          COUNT=1
+
+          while [ $COUNT -le $MAX ]; do
+            echo "Intento $COUNT/$MAX"
+            node botsstefano.js 2> error.log && exit 0
+
+            if grep -Ei "puppeteer|chrome|chromium|browser|Target closed|Session closed" error.log; then
+              echo "Error de Puppeteer detectado, reintentando..."
+              COUNT=$((COUNT+1))
+              sleep 5
+            else
+              echo "Error NO relacionado con Puppeteer, abortando."
+              cat error.log
+              exit 1
+            fi
+          done
+
+          echo "Falló Puppeteer después de $MAX intentos"
+          exit 1
         env:
           JOB_INDEX: ${{ matrix.job_index }}
           JOB_ID: ${{ matrix.job_id }}
