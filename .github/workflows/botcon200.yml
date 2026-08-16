@@ -28,225 +28,106 @@ jobs:
       max-parallel: 27
       matrix:
         include:
-          - { job_index: 0, job_id: "漢字 日本語 中文 한국어 😀" }
-          - { job_index: 1, job_id: "مرحبا السلام عليكم 😃" }
-          - { job_index: 2, job_id: "नमस्ते हिन्दी देवनागरी 😄" }
-          - { job_index: 3, job_id: "漢字 😀 مرحبا 😃 नमस्ते" }
-          - { job_index: 4, job_id: "日本語 中文 🤣 😂" }
-          - { job_index: 5, job_id: "السلام مرحبا 😀" }
-          - { job_index: 6, job_id: "देवनागरी हिन्दी 😅" }
-          - { job_index: 7, job_id: "漢字 漢字 😂" }
-          - { job_index: 8, job_id: "한국어 한국어 😆" }
-          - { job_index: 9, job_id: "中文 中文 😇" }
-
-          - { job_index: 10, job_id: "漢字 日本語 😀 😂" }
-          - { job_index: 11, job_id: "مرحبا 😀 مرحبا" }
-          - { job_index: 12, job_id: "नमस्ते 😀 नमस्ते" }
-          - { job_index: 13, job_id: "中文 😀 😂 🤣" }
-          - { job_index: 14, job_id: "한국어 😀 😂 🤣" }
-          - { job_index: 15, job_id: "漢 😀 字 😃 漢 😄 字" }
-          - { job_index: 16, job_id: "السلام 😀 😃 😄" }
-          - { job_index: 17, job_id: "देवनागरी 😀 😃 😄" }
-          - { job_index: 18, job_id: "日本語 😀 😃 😄" }
-          - { job_index: 19, job_id: "漢字 😆 😅 😂" }
-
-          - { job_index: 20, job_id: "مرحبا السلام 😀 😂" }
-          - { job_index: 21, job_id: "नमस्ते भारत 😀 😂" }
-          - { job_index: 22, job_id: "中文 中国 😀 😂" }
-          - { job_index: 23, job_id: "한국어 대한 😀 😂" }
-          - { job_index: 24, job_id: "漢字 日本語 中文 😀" }
-          - { job_index: 25, job_id: "السلام عليكم 😀 😃" }
-          - { job_index: 26, job_id: "देवनागरी हिन्दी 😀 😃" }
-          - { job_index: 27, job_id: "日本語 かな 😀 😃" }
-          - { job_index: 28, job_id: "漢字 仮名 😀 😃" }
-          - { job_index: 29, job_id: "中文 拼音 😀 😃" }
-
-          - { job_index: 30, job_id: "漢字 漢字 漢字 😀" }
-          - { job_index: 31, job_id: "مرحبا مرحبا 😀" }
-          - { job_index: 32, job_id: "नमस्ते नमस्ते 😀" }
-          - { job_index: 33, job_id: "中文 中文 😀" }
-          - { job_index: 34, job_id: "한국어 한국어 😀" }
-          - { job_index: 35, job_id: "漢字 😀 😂 🤣 😇" }
-          - { job_index: 36, job_id: "السلام 😀 😂 🤣 😇" }
-          - { job_index: 37, job_id: "देवनागरी 😀 😂 🤣 😇" }
-          - { job_index: 38, job_id: "日本語 😀 😂 🤣 😇" }
-          - { job_index: 39, job_id: "中文 😀 😂 🤣 😇" }
-
-          - { job_index: 40, job_id: "漢字 日本語 中文 한국어 😃" }
-          - { job_index: 41, job_id: "مرحبا السلام 😃 😄" }
-          - { job_index: 42, job_id: "नमस्ते हिन्दी 😃 😄" }
-          - { job_index: 43, job_id: "日本語 かな 😃 😄" }
-          - { job_index: 44, job_id: "中文 汉字 😃 😄" }
-          - { job_index: 45, job_id: "한국어 한글 😃 😄" }
-          - { job_index: 46, job_id: "漢 😀 字 😃 日 😄 本 😁 語" }
-          - { job_index: 47, job_id: "مرحبا 😀 السلام 😃 عليكم 😄" }
-          - { job_index: 48, job_id: "नमस्ते 😀 हिन्दी 😃 देवनागरी 😄" }
-          - { job_index: 49, job_id: "中文 😀 拼音 😃 汉字 😄" }
-
-          - { job_index: 50, job_id: "漢字 漢字 😀 😀" }
-          - { job_index: 51, job_id: "مرحبا مرحبا 😀 😀" }
-          - { job_index: 52, job_id: "नमस्ते नमस्ते 😀 😀" }
-          - { job_index: 53, job_id: "中文 中文 😀 😀" }
-          - { job_index: 54, job_id: "한국어 한국어 😀 😀" }
-          - { job_index: 55, job_id: "漢字 😂 😂 🤣" }
-          - { job_index: 56, job_id: "السلام 😂 😂 🤣" }
-          - { job_index: 57, job_id: "देवनागरी 😂 😂 🤣" }
-          - { job_index: 58, job_id: "日本語 😂 😂 🤣" }
-          - { job_index: 59, job_id: "中文 😂 😂 🤣" }
-
-          - { job_index: 60, job_id: "漢字 日本語 😀 😃 😄" }
-          - { job_index: 61, job_id: "مرحبا السلام 😀 😃 😄" }
-          - { job_index: 62, job_id: "नमस्ते हिन्दी 😀 😃 😄" }
-          - { job_index: 63, job_id: "日本語 かな 😀 😃 😄" }
-          - { job_index: 64, job_id: "中文 拼音 😀 😃 😄" }
-          - { job_index: 65, job_id: "한국어 한글 😀 😃 😄" }
-          - { job_index: 66, job_id: "漢字 😆 😅 😂 🤣" }
-          - { job_index: 67, job_id: "السلام 😆 😅 😂 🤣" }
-          - { job_index: 68, job_id: "देवनागरी 😆 😅 😂 🤣" }
-          - { job_index: 69, job_id: "日本語 😆 😅 😂 🤣" }
-
-          - { job_index: 70, job_id: "中文 😆 😅 😂 🤣" }
-          - { job_index: 71, job_id: "漢字 漢字 😇 😇" }
-          - { job_index: 72, job_id: "مرحبا مرحبا 😇 😇" }
-          - { job_index: 73, job_id: "नमस्ते नमस्ते 😇 😇" }
-          - { job_index: 74, job_id: "中文 中文 😇 😇" }
-          - { job_index: 75, job_id: "한국어 한국어 😇 😇" }
-          - { job_index: 76, job_id: "漢字 日本語 中文 😇" }
-          - { job_index: 77, job_id: "السلام عليكم 😇" }
-          - { job_index: 78, job_id: "देवनागरी हिन्दी 😇" }
-          - { job_index: 79, job_id: "日本語 かな 😇" }
-
-          - { job_index: 80, job_id: "中文 拼音 😇" }
-          - { job_index: 81, job_id: "한국어 한글 😇" }
-          - { job_index: 82, job_id: "漢字 😀 😇 😂" }
-          - { job_index: 83, job_id: "مرحبا 😀 😇 😂" }
-          - { job_index: 84, job_id: "नमस्ते 😀 😇 😂" }
-          - { job_index: 85, job_id: "日本語 😀 😇 😂" }
-          - { job_index: 86, job_id: "中文 😀 😇 😂" }
-          - { job_index: 87, job_id: "한국어 😀 😇 😂" }
-          - { job_index: 88, job_id: "漢字 😀 😃 😄 😁" }
-          - { job_index: 89, job_id: "السلام 😀 😃 😄 😁" }
-
-          - { job_index: 90, job_id: "देवनागरी 😀 😃 😄 😁" }
-          - { job_index: 91, job_id: "日本語 😀 😃 😄 😁" }
-          - { job_index: 92, job_id: "中文 😀 😃 😄 😁" }
-          - { job_index: 93, job_id: "한국어 😀 😃 😄 😁" }
-          - { job_index: 94, job_id: "漢字 漢字 漢字 😃" }
-          - { job_index: 95, job_id: "مرحبا مرحبا مرحبا 😃" }
-          - { job_index: 96, job_id: "नमस्ते नमस्ते नमस्ते 😃" }
-          - { job_index: 97, job_id: "中文 中文 中文 😃" }
-          - { job_index: 98, job_id: "한국어 한국어 한국어 😃" }
-          - { job_index: 99, job_id: "漢字 日本語 中文 한국어 🤣" }
-
-          - { job_index: 100, job_id: "漢字 日本語 中文 😀" }
-          - { job_index: 101, job_id: "مرحبا السلام 😀" }
-          - { job_index: 102, job_id: "नमस्ते हिन्दी 😀" }
-          - { job_index: 103, job_id: "日本語 かな 😀" }
-          - { job_index: 104, job_id: "中文 拼音 😀" }
-          - { job_index: 105, job_id: "한국어 한글 😀" }
-          - { job_index: 106, job_id: "漢字 😃 😄 😁" }
-          - { job_index: 107, job_id: "السلام 😃 😄 😁" }
-          - { job_index: 108, job_id: "देवनागरी 😃 😄 😁" }
-          - { job_index: 109, job_id: "日本語 😃 😄 😁" }
-
-          - { job_index: 110, job_id: "中文 😃 😄 😁" }
-          - { job_index: 111, job_id: "한국어 😃 😄 😁" }
-          - { job_index: 112, job_id: "漢字 😀 😀 😀" }
-          - { job_index: 113, job_id: "مرحبا 😀 😀 😀" }
-          - { job_index: 114, job_id: "नमस्ते 😀 😀 😀" }
-          - { job_index: 115, job_id: "日本語 😀 😀 😀" }
-          - { job_index: 116, job_id: "中文 😀 😀 😀" }
-          - { job_index: 117, job_id: "한국어 😀 😀 😀" }
-          - { job_index: 118, job_id: "漢字 😆 😆 😆" }
-          - { job_index: 119, job_id: "السلام 😆 😆 😆" }
-
-          - { job_index: 120, job_id: "देवनागरी 😆 😆 😆" }
-          - { job_index: 121, job_id: "日本語 😆 😆 😆" }
-          - { job_index: 122, job_id: "中文 😆 😆 😆" }
-          - { job_index: 123, job_id: "한국어 😆 😆 😆" }
-          - { job_index: 124, job_id: "漢字 😇 😇 😇" }
-          - { job_index: 125, job_id: "مرحبا 😇 😇 😇" }
-          - { job_index: 126, job_id: "नमस्ते 😇 😇 😇" }
-          - { job_index: 127, job_id: "日本語 😇 😇 😇" }
-          - { job_index: 128, job_id: "中文 😇 😇 😇" }
-          - { job_index: 129, job_id: "한국어 😇 😇 😇" }
-
-          - { job_index: 130, job_id: "漢字 日本語 中文 😃" }
-          - { job_index: 131, job_id: "مرحبا السلام 😃" }
-          - { job_index: 132, job_id: "नमस्ते हिन्दी 😃" }
-          - { job_index: 133, job_id: "日本語 かな 😃" }
-          - { job_index: 134, job_id: "中文 拼音 😃" }
-          - { job_index: 135, job_id: "한국어 한글 😃" }
-          - { job_index: 136, job_id: "漢字 😀 😃 😄" }
-          - { job_index: 137, job_id: "السلام 😀 😃 😄" }
-          - { job_index: 138, job_id: "देवनागरी 😀 😃 😄" }
-          - { job_index: 139, job_id: "日本語 😀 😃 😄" }
-
-          - { job_index: 140, job_id: "中文 😀 😃 😄" }
-          - { job_index: 141, job_id: "한국어 😀 😃 😄" }
-          - { job_index: 142, job_id: "漢字 😂 🤣 😇" }
-          - { job_index: 143, job_id: "مرحبا 😂 🤣 😇" }
-          - { job_index: 144, job_id: "नमस्ते 😂 🤣 😇" }
-          - { job_index: 145, job_id: "日本語 😂 🤣 😇" }
-          - { job_index: 146, job_id: "中文 😂 🤣 😇" }
-          - { job_index: 147, job_id: "한국어 😂 🤣 😇" }
-          - { job_index: 148, job_id: "漢字 😃 😄 😁 😆" }
-          - { job_index: 149, job_id: "السلام 😃 😄 😁 😆" }
-
-          - { job_index: 150, job_id: "देवनागरी 😃 😄 😁 😆" }
-          - { job_index: 151, job_id: "日本語 😃 😄 😁 😆" }
-          - { job_index: 152, job_id: "中文 😃 😄 😁 😆" }
-          - { job_index: 153, job_id: "한국어 😃 😄 😁 😆" }
-          - { job_index: 154, job_id: "漢字 😀 😆 😇" }
-          - { job_index: 155, job_id: "مرحبا 😀 😆 😇" }
-          - { job_index: 156, job_id: "नमस्ते 😀 😆 😇" }
-          - { job_index: 157, job_id: "日本語 😀 😆 😇" }
-          - { job_index: 158, job_id: "中文 😀 😆 😇" }
-          - { job_index: 159, job_id: "한국어 😀 😆 😇" }
-
-          - { job_index: 160, job_id: "漢字 日本語 中文 😆" }
-          - { job_index: 161, job_id: "مرحبا السلام 😆" }
-          - { job_index: 162, job_id: "नमस्ते हिन्दी 😆" }
-          - { job_index: 163, job_id: "日本語 かな 😆" }
-          - { job_index: 164, job_id: "中文 拼音 😆" }
-          - { job_index: 165, job_id: "한국어 한글 😆" }
-          - { job_index: 166, job_id: "漢字 😄 😁 😆 😇" }
-          - { job_index: 167, job_id: "السلام 😄 😁 😆 😇" }
-          - { job_index: 168, job_id: "देवनागरी 😄 😁 😆 😇" }
-          - { job_index: 169, job_id: "日本語 😄 😁 😆 😇" }
-
-          - { job_index: 170, job_id: "中文 😄 😁 😆 😇" }
-          - { job_index: 171, job_id: "한국어 😄 😁 😆 😇" }
-          - { job_index: 172, job_id: "漢字 😀 😂 😇" }
-          - { job_index: 173, job_id: "مرحبا 😀 😂 😇" }
-          - { job_index: 174, job_id: "नमस्ते 😀 😂 😇" }
-          - { job_index: 175, job_id: "日本語 😀 😂 😇" }
-          - { job_index: 176, job_id: "中文 😀 😂 😇" }
-          - { job_index: 177, job_id: "한국어 😀 😂 😇" }
-          - { job_index: 178, job_id: "漢字 😃 😅 😂 🤣" }
-          - { job_index: 179, job_id: "السلام 😃 😅 😂 🤣" }
-
-          - { job_index: 180, job_id: "देवनागरी 😃 😅 😂 🤣" }
-          - { job_index: 181, job_id: "日本語 😃 😅 😂 🤣" }
-          - { job_index: 182, job_id: "中文 😃 😅 😂 🤣" }
-          - { job_index: 183, job_id: "한국어 😃 😅 😂 🤣" }
-          - { job_index: 184, job_id: "漢字 😇 😀 😆" }
-          - { job_index: 185, job_id: "مرحبا 😇 😀 😆" }
-          - { job_index: 186, job_id: "नमस्ते 😇 😀 😆" }
-          - { job_index: 187, job_id: "日本語 😇 😀 😆" }
-          - { job_index: 188, job_id: "中文 😇 😀 😆" }
-          - { job_index: 189, job_id: "한국어 😇 😀 😆" }
-
-          - { job_index: 190, job_id: "漢字 日本語 中文 😇" }
-          - { job_index: 191, job_id: "مرحبا السلام 😇" }
-          - { job_index: 192, job_id: "नमस्ते हिन्दी 😇" }
-          - { job_index: 193, job_id: "日本語 かな 😇" }
-          - { job_index: 194, job_id: "中文 拼音 😇" }
-          - { job_index: 195, job_id: "한국어 한글 😇" }
-          - { job_index: 196, job_id: "漢字 😀 😃 😄 😁 😆 😇" }
-          - { job_index: 197, job_id: "السلام 😀 😃 😄 😁 😆 😇" }
-          - { job_index: 198, job_id: "देवनागरी 😀 😃 😄 😁 😆 😇" }
-          - { job_index: 199, job_id: "日本語 😀 😃 😄 😁 😆 😇" }
+          - { job_index: 0, job_id: "Lionel Andres Messi" }
+          - { job_index: 1, job_id: "Cristiano Ronaldo dos Santos Aveiro" }
+          - { job_index: 2, job_id: "Neymar da Silva Santos Junior" }
+          - { job_index: 3, job_id: "Kylian Mbappe Lottin" }
+          - { job_index: 4, job_id: "Erling Haaland" }
+          - { job_index: 5, job_id: "Vinicius Jose Paixao de Oliveira Junior" }
+          - { job_index: 6, job_id: "Luka Modric" }
+          - { job_index: 7, job_id: "Kevin De Bruyne" }
+          - { job_index: 8, job_id: "Robert Lewandowski" }
+          - { job_index: 9, job_id: "Mohamed Salah Hamed Mahrous Ghaly" }
+          - { job_index: 10, job_id: "Karim Benzema" }
+          - { job_index: 11, job_id: "Sergio Ramos Garcia" }
+          - { job_index: 12, job_id: "Luis Alberto Suarez Diaz" }
+          - { job_index: 13, job_id: "Antoine Griezmann" }
+          - { job_index: 14, job_id: "Harry Edward Kane" }
+          - { job_index: 15, job_id: "Jude Bellingham" }
+          - { job_index: 16, job_id: "Rodrigo Hernandez Cascante" }
+          - { job_index: 17, job_id: "Toni Kroos" }
+          - { job_index: 18, job_id: "Manuel Neuer" }
+          - { job_index: 19, job_id: "Gianluigi Donnarumma" }
+          - { job_index: 20, job_id: "Thibaut Courtois" }
+          - { job_index: 21, job_id: "Virgil van Dijk" }
+          - { job_index: 22, job_id: "Trent John Alexander-Arnold" }
+          - { job_index: 23, job_id: "Andrew Robertson" }
+          - { job_index: 24, job_id: "Ruben dos Santos Gato Alves Dias" }
+          - { job_index: 25, job_id: "Bernardo Mota Veiga de Carvalho e Silva" }
+          - { job_index: 26, job_id: "Bruno Miguel Borges Fernandes" }
+          - { job_index: 27, job_id: "Casemiro Carlos Henrique" }
+          - { job_index: 28, job_id: "Thiago Alcantara do Nascimento" }
+          - { job_index: 29, job_id: "Sergio Busquets Burgos" }
+          - { job_index: 30, job_id: "Gerard Pique Bernabeu" }
+          - { job_index: 31, job_id: "Andres Iniesta Lujan" }
+          - { job_index: 32, job_id: "Xavier Hernandez Creus" }
+          - { job_index: 33, job_id: "Iker Casillas Fernandez" }
+          - { job_index: 34, job_id: "Carles Puyol Saforcada" }
+          - { job_index: 35, job_id: "David Villa Sanchez" }
+          - { job_index: 36, job_id: "Fernando Jose Torres Sanz" }
+          - { job_index: 37, job_id: "Zlatan Ibrahimovic" }
+          - { job_index: 38, job_id: "Ronaldinho Gaucho" }
+          - { job_index: 39, job_id: "Ronaldo Luis Nazario de Lima" }
+          - { job_index: 40, job_id: "Ricardo Izecson dos Santos Leite" }
+          - { job_index: 41, job_id: "Kaka" }
+          - { job_index: 42, job_id: "David Robert Joseph Beckham" }
+          - { job_index: 43, job_id: "Wayne Mark Rooney" }
+          - { job_index: 44, job_id: "Steven George Gerrard" }
+          - { job_index: 45, job_id: "Frank James Lampard" }
+          - { job_index: 46, job_id: "Paul Scholes" }
+          - { job_index: 47, job_id: "Ryan Joseph Giggs" }
+          - { job_index: 48, job_id: "Thierry Henry" }
+          - { job_index: 49, job_id: "Samuel Eto'o Fils" }
+          - { job_index: 50, job_id: "Didier Yves Drogba Tebily" }
+          - { job_index: 51, job_id: "Sadio Mane" }
+          - { job_index: 52, job_id: "Riyad Karim Mahrez" }
+          - { job_index: 53, job_id: "Yaya Toure" }
+          - { job_index: 54, job_id: "Samuel Chimerenka Chukwueze" }
+          - { job_index: 55, job_id: "Victor James Osimhen" }
+          - { job_index: 56, job_id: "Achraf Hakimi Mouh" }
+          - { job_index: 57, job_id: "Hakim Ziyech" }
+          - { job_index: 58, job_id: "Son Heung-min" }
+          - { job_index: 59, job_id: "Takefusa Kubo" }
+          - { job_index: 60, job_id: "Shinji Kagawa" }
+          - { job_index: 61, job_id: "Park Ji-sung" }
+          - { job_index: 62, job_id: "Luis Alberto Romo Gonzalez" }
+          - { job_index: 63, job_id: "Angel Fabian Di Maria" }
+          - { job_index: 64, job_id: "Paulo Bruno Exequiel Dybala" }
+          - { job_index: 65, job_id: "Lautaro Javier Martinez" }
+          - { job_index: 66, job_id: "Sergio Leonel Aguero del Castillo" }
+          - { job_index: 67, job_id: "Javier Alejandro Mascherano" }
+          - { job_index: 68, job_id: "Gabriel Omar Batistuta" }
+          - { job_index: 69, job_id: "Juan Roman Riquelme" }
+          - { job_index: 70, job_id: "Diego Armando Maradona" }
+          - { job_index: 71, job_id: "Claudio Javier Caniggia" }
+          - { job_index: 72, job_id: "Enzo Francescoli Uriarte" }
+          - { job_index: 73, job_id: "Diego Forlan Corazo" }
+          - { job_index: 74, job_id: "Luis Alberto Suarez Diaz" }
+          - { job_index: 75, job_id: "Edinson Roberto Cavani Gomez" }
+          - { job_index: 76, job_id: "Federico Valverde Dipetta" }
+          - { job_index: 77, job_id: "Darwin Gabriel Nunez Ribeiro" }
+          - { job_index: 78, job_id: "Ronald Federico Araujo da Silva" }
+          - { job_index: 79, job_id: "Jose Maria Gimenez de Vargas" }
+          - { job_index: 80, job_id: "Diego Godin Leal" }
+          - { job_index: 81, job_id: "Edgar David Benitez Santander" }
+          - { job_index: 82, job_id: "Alisson Ramses Becker" }
+          - { job_index: 83, job_id: "Ederson Santana de Moraes" }
+          - { job_index: 84, job_id: "Marquinhos Marcos Aoas Correa" }
+          - { job_index: 85, job_id: "Thiago Emiliano da Silva" }
+          - { job_index: 86, job_id: "Gabriel Fernando de Jesus" }
+          - { job_index: 87, job_id: "Richarlison de Andrade" }
+          - { job_index: 88, job_id: "Rodrygo Silva de Goes" }
+          - { job_index: 89, job_id: "Raphinha Dias Belloli" }
+          - { job_index: 90, job_id: "Endrick Felipe Moreira de Sousa" }
+          - { job_index: 91, job_id: "Estevao Willian Almeida de Oliveira Goncalves" }
+          - { job_index: 92, job_id: "Philippe Coutinho Correia" }
+          - { job_index: 93, job_id: "Gabriel Martinelli Silva" }
+          - { job_index: 94, job_id: "Thierry Daniel Henry" }
+          - { job_index: 95, job_id: "Cesc Fabregas Soler" }
+          - { job_index: 96, job_id: "Mesut Ozil" }
+          - { job_index: 97, job_id: "Arjen Robben" }
+          - { job_index: 98, job_id: "Franck Henry Pierre Ribery" }
+          - { job_index: 99, job_id: "Andrea Pirlo" }
 
     env:
       HAXBALL_ROOMS: ${{ github.event.inputs.haxball_rooms }}
